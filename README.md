@@ -25,7 +25,6 @@ This is created with Eclipse for the purpose to be a tool for learting how to pr
 <li>Under <b>WPILib Robot Development</b> sellect <b>Robot Java Development</b></li>
 <li>Click on next->next->Accept->Finish and allow it to install<br/>
 If it asks you if you want to continue to install it from an unknown source than just click continue</li>
-<li>If you have a problem with any of this than create an issue under the issue tab and Ii will get back to you as soon as I can</li>
 </ol>
 <ol>To Import this project:
 <li>Open Eclipse</li>
@@ -35,3 +34,4 @@ URl: <b>https://github.com/FRC3571/2015TestBot.git</b><br/>
 (Do not touch the other fields)</li>
 <li>After you click next and finish the project will be automatically downloaded</li>
 </ol>
+<b>If you have a problem with any of this than create an issue under the issue tab and I will get back to you as soon as I can</b>
