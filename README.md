@@ -25,6 +25,17 @@ This is created with Eclipse for the purpose to be a tool for learting how to pr
 <li>Under <b>WPILib Robot Development</b> sellect <b>Robot Java Development</b></li>
 <li>Click on next->next->Accept->Finish and allow it to install<br/>
 If it asks you if you want to continue to install it from an unknown source than just click continue</li>
+<li>In your browser go to <b>http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</b></li>
+<li>Download the jdk for your system</li>
+<li>Once installed go back into Eclipse</li>
+<li>Go to <b>Window</b>-><b>Preferences</b></li>
+<li>In preferences expand <b>Java</b> and click on <b>Installed JREs</b></li>
+<li>Click <b>Add</b>-><b>Standard VM</b>-><b>Next</b></li>
+<li>Click <b>Directory...</b> and find the directory of the JDK you just installed<br/>
+    Ex: In Windows I would go to <b>C:\Program Files\Java</b> and sellect <b>jdk1.8.0_66</b> <br/>
+    Warning sellect your <b>JDK</b> folder not the JRE</li>
+<li>Then click finish and sellect the jdk under Installed JREs and click OK</li>
+<li>Finaly to generate the library create a new frc project</li>
 </ol>
 <ol>To Import this project:
 <li>Open Eclipse</li>
