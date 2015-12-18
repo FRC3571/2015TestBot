@@ -35,8 +35,12 @@ If it asks you if you want to continue to install it from an unknown source than
     <b>Ex:</b> In Windows I would go to <b>C:\Program Files\Java</b> and sellect <b>jdk1.8.0_66</b> <br/>
     Warning sellect your <b>JDK</b> folder not the JRE</li>
 <li>Then click <b>finish</b> and sellect the <b>jdk</b> under Installed JREs and click OK</li>
-<li>Finaly to generate the library create a new frc project</li>
+<li>Finaly to generate the library create a <b>new frc project</b><br/>
+<ol><li>Go to <b>File</b>-><b>New</b>-><b>Project</b></li>
+	<li>Go to <b>WPILib Robot Java Development</b> and click on <b>Robot Java Project</b></li>
+	<li>Enter in a random project name and click <b>Finish</b><br/>The name just has to not be empty</li></ol></li>
 </ol>
+
 <ol>To Import this project:
 <li>Open Eclipse</li>
 <li>Go to <b>File</b>-><b>Import</b>-><b>Git</b>-><b>Projects from Git</b>-><b>Clone URl</b></li>

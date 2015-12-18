@@ -9,6 +9,6 @@ public class Teleop extends OI {
 	public static void periodic(){
 		//The code here runs until the robot is switched from teleop or disabled
 		
-		drive.arcadeDrive(driver.LeftStick.X,driver.LeftStick.Y);//Example drive
+		drive.arcadeDrive(driver.LeftStick.Y,driver.LeftStick.X);//Example drive
 	}
 }
