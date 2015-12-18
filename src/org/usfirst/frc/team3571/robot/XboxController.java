@@ -50,7 +50,6 @@ public class XboxController {
     }
     public class buttons{
         public Button A =button[0];
-        public Button A1 =button[01];
         public Button B =button[1];
         public Button X =button[2];
         public Button Y =button[3];
