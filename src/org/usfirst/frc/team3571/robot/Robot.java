@@ -67,6 +67,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
     	Teleop.periodic();
+    	OI.refreshAll();
         Scheduler.getInstance().run();
     }
     

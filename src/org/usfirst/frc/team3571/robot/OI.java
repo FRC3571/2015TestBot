@@ -9,6 +9,11 @@ import edu.wpi.first.wpilibj.*;
 public class OI extends RobotMap {
 	public static XboxController driver = new XboxController(DriverUSB.driverController);
 	public static RobotDrive drive = new RobotDrive(PWM.leftFrontDriveMotor,PWM.leftRearDriveMotor,PWM.rightFrontDriveMotor,PWM.rightRearDriveMotor);
+	//New objects go here
 	
+	public static void refreshAll(){
+		driver.refresh();
+		//All refresh calls for the objects above go in here
+	}
 }
 
