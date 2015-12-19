@@ -57,7 +57,7 @@ public class XboxController {
      */
     public boolean getRawButton(int i){
     	i-=1;
-    	if (i>=0)return (buttonState & (1<<i))!=0;
+    	if (i >= 0 && i < buttonCount)return (buttonState & (1 << i))!=0;
     	return false;
     }
     /**
@@ -82,12 +82,12 @@ public class XboxController {
     	DPad.set(dStation.getStickPOV(port, 0));
     }
     private void getLeftStick(){
-    	LeftStick.X=dStation.getStickAxis(port, 0);
-    	LeftStick.Y=dStation.getStickAxis(port, 1);
+    	LeftStick.X = dStation.getStickAxis(port, 0);
+    	LeftStick.Y = dStation.getStickAxis(port, 1);
     }
     private void getRightStick(){
-    	RightStick.X=dStation.getStickAxis(port, 4);
-    	RightStick.Y=dStation.getStickAxis(port, 5);
+    	RightStick.X = dStation.getStickAxis(port, 4);
+    	RightStick.Y = dStation.getStickAxis(port, 5);
     }
     private void getTrigger(){
         Triggers.Left = dStation.getStickAxis(port, 2);
@@ -97,7 +97,7 @@ public class XboxController {
     private void getButtons(){
     	buttonState = dStation.getStickButtons(port);
     	for(int i=0;i<10;i++){
-    		buttons[i].set((buttonState & (1<<i))!=0);
+    		buttons[i].set((buttonState & (1 << i)) !=0 );
     	}
     }
     
@@ -112,7 +112,7 @@ public class XboxController {
     		combine();
     	}
     	private void combine(){
-    		Combined=Right-Left;
+    		Combined = Right - Left;
     	}
     }
     
@@ -132,8 +132,8 @@ public class XboxController {
     public class Axis{
         public double X,Y;
         public Axis(double x,double y){
-            X=x;
-            Y=y;
+            X = x;
+            Y = y;
         }
     }
     
@@ -167,20 +167,20 @@ public class XboxController {
         }
     }
     public class ButtonRemap{
-        public Button A =buttons[0];
-        public Button B =buttons[1];
-        public Button X =buttons[2];
-        public Button Y =buttons[3];
-        public Button LB =buttons[4];
-        public Button RB =buttons[5];
-        public Button Back =buttons[6];
-        public Button Start =buttons[7];
-        public Button LeftStick =buttons[8];
-        public Button RightStick =buttons[9];
+        public Button A = buttons[0];
+        public Button B = buttons[1];
+        public Button X = buttons[2];
+        public Button Y = buttons[3];
+        public Button LB = buttons[4];
+        public Button RB = buttons[5];
+        public Button Back = buttons[6];
+        public Button Start = buttons[7];
+        public Button LeftStick = buttons[8];
+        public Button RightStick = buttons[9];
     	
     }
     private static abstract class CustomButton extends Trigger{
-    	boolean invert=false;
+    	boolean invert = false;
     }
     public enum RumbleType{
     	left,right;
