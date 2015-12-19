@@ -59,7 +59,7 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-
+    	Scheduler.getInstance().removeAll();
     }
 
     /**
