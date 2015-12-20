@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3571.robot;
+package org.usfirst.frc.team3571.robot.utilities;
 
 import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.command.Command;
@@ -6,8 +6,9 @@ import edu.wpi.first.wpilibj.communication.FRCNetworkCommunicationsLibrary;
 import edu.wpi.first.wpilibj.DriverStation;
 
 /**
- *
- * @author TomasR
+ *Handles Input from the Xbox Controller connected to the driver station.<br/>
+ *Designed to have separate objects for the Buttons, Axis, and the Dpad so that anyone can make a local reference of either of them
+ *@author TomasR
  */
 public class XboxController {
     private DriverStation dStation;
@@ -54,11 +55,12 @@ public class XboxController {
      * Returns the state of a specific button
      * @param i The button number starting with 1
      * @return True if the button is pressed else False
+     * @throws Exception if the button does not exist
      */
-    public boolean getRawButton(int i){
+    public boolean getRawButton(int i) throws Exception{
     	i-=1;
     	if (i >= 0 && i < buttonCount)return (buttonState & (1 << i))!=0;
-    	return false;
+    	throw new Exception(String.format("Button %d does not exist", i));
     }
     /**
      * @return The number of buttons
@@ -171,7 +173,9 @@ public class XboxController {
         public Button B = buttons[1];
         public Button X = buttons[2];
         public Button Y = buttons[3];
+        /**Left Bumper**/
         public Button LB = buttons[4];
+        /**Right Bumper**/
         public Button RB = buttons[5];
         public Button Back = buttons[6];
         public Button Start = buttons[7];
