@@ -28,10 +28,6 @@ public class Robot extends IterativeRobot {
         // instantiate the command used for the autonomous period
         autonomousCommand = new ExampleCommand();
     }
-	
-	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
-	}
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
@@ -61,13 +57,17 @@ public class Robot extends IterativeRobot {
     public void disabledInit(){
     	Scheduler.getInstance().removeAll();
     }
+    
+	public void disabledPeriodic() {
+		Scheduler.getInstance().run();
+	}
 
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	Teleop.periodic();
     	OI.refreshAll();
+    	Teleop.periodic();
         Scheduler.getInstance().run();
     }
     

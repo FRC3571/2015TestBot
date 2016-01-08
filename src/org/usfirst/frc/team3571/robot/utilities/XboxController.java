@@ -63,6 +63,14 @@ public class XboxController {
     	throw new Exception(String.format("Button %d does not exist", i));
     }
     /**
+     * Returns the state of a specific axis
+     * @param i Axis number starting with 0
+     * @return Returns a double between -1 and 1
+     */
+    public double getRawAxis(int i){
+    	return dStation.getStickAxis(port, i);
+    }
+    /**
      * @return The number of buttons
      */
     public int getButtonCount(){
@@ -79,7 +87,6 @@ public class XboxController {
     	getTrigger();
     	getButtons();
     }
-
     private void getDpad(){
     	DPad.set(dStation.getStickPOV(port, 0));
     }
@@ -138,28 +145,51 @@ public class XboxController {
             Y = y;
         }
     }
-    
     public static class Button{
         public boolean current=false , last=false,changedDown=false,changedUp=false;
-        private CustomButton button;
+        private Trigger button;
+        private boolean invertedCommand=false;
+        /**
+         * Runs your command automatically<br/>
+         * Acts when pressed<br/>
+         * Should only be called once when setting the command<br/>
+         * Requires <u>Scheduler.getInstance().run()</u>
+         * @param command your custom command
+         * @param state A selection of when to run the command
+         */
+        public void runCommand(Command command,CommandState state){
+        	if(button==null)button = new Trigger(){
+    			@Override
+    			public boolean get() {
+    				return current ^ invertedCommand;
+    			}
+        	};
+        	switch(state){
+        	case once:
+            	button.whenActive(command);
+        		break;
+        	case toggle:
+        		button.toggleWhenActive(command);
+        		break;
+        	case constant:
+        		button.whileActive(command);
+        		break;
+        	case cancel:
+        		button.cancelWhenActive(command);
+        		break;
+        	}
+        }
         /**
          * Runs your command automatically<br/>
          * Should only be called once when setting the command<br/>
          * Requires <u>Scheduler.getInstance().run()</u>
          * @param command your custom command
          * @param onHigh runs your command when the button is pressed
-         * @param once runs you command only once each time the button is pressed
+         * @param state A selection of when to run the command
          */
-        public void runCommand(Command command, boolean onHigh, boolean once){
-        	if(button==null)button = new CustomButton(){
-    			@Override
-    			public boolean get() {
-    				return current ^ this.invert;
-    			}
-        	};
-        	button.invert=!onHigh;
-        	if(once)button.whenActive(command);
-        	else button.whileActive(command);
+        public void runCommand(Command command, boolean onHigh,CommandState state){
+        	invertedCommand=!onHigh;
+        	runCommand(command,state);
         }
         private void set(boolean current){
         	last=this.current;
@@ -183,8 +213,15 @@ public class XboxController {
         public Button RightStick = buttons[9];
     	
     }
-    private static abstract class CustomButton extends Trigger{
-    	boolean invert = false;
+    public enum CommandState{
+    	/**Runs the command only once**/
+    	once,
+    	/**Works like once but cancels the command on the second press**/
+    	toggle,
+    	/**Runs the command on every call of <u>Scheduler.getInstance().run()</u>**/
+    	constant,
+    	/**Cancels the command**/
+    	cancel;
     }
     public enum RumbleType{
     	left,right;
