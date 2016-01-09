@@ -89,11 +89,12 @@ public class XboxController {
     	getButtons();
     }
     /**
-     * Sets the dead zones of the two sticks
-     * @param leftStick the magnitude of the dead zone in the LeftStick
-     * @param rightStick the magnitude of the dead zone in the RightStick
+     * Sets the dead zones of the two sticks<br/>
+     * Set either to 0 to turn the dead zone off
+     * @param leftStick The magnitude of the dead zone in the LeftStick
+     * @param rightStick The magnitude of the dead zone in the RightStick
      */
-    public XboxController setDeadzone(double leftStick, double rightStick){
+    public XboxController setDeadZones(double leftStick, double rightStick){
     	deadZoneLeft=leftStick * leftStick;
     	deadZoneRight=rightStick * rightStick;
     	return this;
