@@ -15,6 +15,7 @@ public class XboxController {
     private int port=0, buttonState=0, buttonCount=0;
     private Button[] buttons=new Button[10];
     private short lRumble=0, rRumble=0;
+    private double deadZoneLeft=0, deadZoneRight=0;
     
     public Axis LeftStick=new Axis(0,0), RightStick=new Axis(0,0);
     public triggers Triggers=new triggers(0,0);
@@ -87,16 +88,48 @@ public class XboxController {
     	getTrigger();
     	getButtons();
     }
+    /**
+     * Sets the dead zones of the two sticks
+     * @param leftStick the magnitude of the dead zone in the LeftStick
+     * @param rightStick the magnitude of the dead zone in the RightStick
+     */
+    public XboxController setDeadzone(double leftStick, double rightStick){
+    	deadZoneLeft=leftStick * leftStick;
+    	deadZoneRight=rightStick * rightStick;
+    	return this;
+    }
+    /**
+     * Calculates the magnitude of on of the sticks
+     * @param stick The side of the stick
+     * @return The magnitude of the stick
+     */
+    public double getMagnitude(Sides stick){
+    	if(stick==Sides.left)return Math.sqrt(LeftStick.X*LeftStick.X+LeftStick.Y*LeftStick.Y);
+    	else return Math.sqrt(RightStick.X*RightStick.X+RightStick.Y*RightStick.Y);
+    }
+    
     private void getDpad(){
     	DPad.set(dStation.getStickPOV(port, 0));
     }
     private void getLeftStick(){
     	LeftStick.X = dStation.getStickAxis(port, 0);
     	LeftStick.Y = dStation.getStickAxis(port, 1);
+    	if(deadZoneLeft!=0){
+    		if(LeftStick.X * LeftStick.X + LeftStick.Y * LeftStick.Y < deadZoneLeft){
+    	    	LeftStick.X = 0;
+    	    	LeftStick.Y = 0;
+    		}
+    	}
     }
     private void getRightStick(){
     	RightStick.X = dStation.getStickAxis(port, 4);
     	RightStick.Y = dStation.getStickAxis(port, 5);
+    	if(deadZoneRight!=0){
+    		if(RightStick.X * RightStick.X + RightStick.Y * RightStick.Y < deadZoneRight){
+    			RightStick.X = 0;
+    			RightStick.Y = 0;
+    		}
+    	}
     }
     private void getTrigger(){
         Triggers.Left = dStation.getStickAxis(port, 2);
@@ -223,7 +256,10 @@ public class XboxController {
     	/**Cancels the command**/
     	cancel;
     }
+    public enum Sides{
+    	left, right
+    }
     public enum RumbleType{
-    	left,right;
+    	left, right, combined;
     }
 }
