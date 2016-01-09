@@ -24,9 +24,20 @@ public class XboxController {
     
     /**
      * Sets up the controller
-     * @param port controller port
+     * @param port Controller port
      */
     public XboxController(int port) {
+    	this(port, 0, 0);
+    }
+    /**
+     * Sets up the controller with dead zones
+     * @param port Controller port
+     * @param leftDeadZone The magnitude of the dead zone on the left stick
+     * @param rightDeadZone The magnitude of the dead zone on the right stick
+     */
+    public XboxController(int port,double leftDeadZone, double rightDeadZone){
+    	deadZoneLeft = leftDeadZone * leftDeadZone;
+    	deadZoneRight = rightDeadZone * rightDeadZone;
     	dStation = DriverStation.getInstance();
     	this.port=port;
         for(int ii=0;ii<10;ii++){
@@ -36,6 +47,7 @@ public class XboxController {
         Buttons=new ButtonRemap();
         buttonCount=dStation.getStickButtonCount(port);
     }
+    
     /**
      * Sends values to the rumble motors in the controller
      * @param type either left or right
@@ -46,12 +58,13 @@ public class XboxController {
             value = 0;
         else if (value > 1)
             value = 1;
-        if (type == RumbleType.left)
+        if (type == RumbleType.left || type == RumbleType.combined)
         	lRumble = (short)(value*65535);
-        else
+        if(type == RumbleType.right || type == RumbleType.combined)
         	rRumble = (short)(value*65535);
         FRCNetworkCommunicationsLibrary.HALSetJoystickOutputs((byte)port, 0, lRumble, rRumble);
     }
+    
     /**
      * Returns the state of a specific button
      * @param i The button number starting with 1
@@ -94,10 +107,9 @@ public class XboxController {
      * @param leftStick The magnitude of the dead zone in the LeftStick
      * @param rightStick The magnitude of the dead zone in the RightStick
      */
-    public XboxController setDeadZones(double leftStick, double rightStick){
+    public void setDeadZones(double leftStick, double rightStick){
     	deadZoneLeft=leftStick * leftStick;
     	deadZoneRight=rightStick * rightStick;
-    	return this;
     }
     /**
      * Calculates the magnitude of on of the sticks
