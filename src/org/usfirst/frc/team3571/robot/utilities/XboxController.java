@@ -194,7 +194,6 @@ public class XboxController {
     public static class Button{
         public boolean current=false , last=false,changedDown=false,changedUp=false;
         private Trigger button;
-        private boolean invertedCommand=false;
         /**
          * Runs your command automatically<br/>
          * Acts when pressed<br/>
@@ -207,35 +206,27 @@ public class XboxController {
         	if(button==null)button = new Trigger(){
     			@Override
     			public boolean get() {
-    				return current ^ invertedCommand;
+    				return current ;
     			}
         	};
         	switch(state){
-        	case once:
+        	case whenPressed:
             	button.whenActive(command);
         		break;
         	case toggle:
         		button.toggleWhenActive(command);
         		break;
-        	case constant:
+        	case whilePressed:
         		button.whileActive(command);
+        		break;
+        	case whileNotPressed:
+        		button.whenInactive(command);
+        		button.cancelWhenActive(command);
         		break;
         	case cancel:
         		button.cancelWhenActive(command);
         		break;
         	}
-        }
-        /**
-         * Runs your command automatically<br/>
-         * Should only be called once when setting the command<br/>
-         * Requires <u>Scheduler.getInstance().run()</u>
-         * @param command your custom command
-         * @param onHigh runs your command when the button is pressed
-         * @param state A selection of when to run the command
-         */
-        public void runCommand(Command command, boolean onHigh,CommandState state){
-        	invertedCommand=!onHigh;
-        	runCommand(command,state);
         }
         private void set(boolean current){
         	last=this.current;
@@ -260,13 +251,15 @@ public class XboxController {
     	
     }
     public enum CommandState{
-    	/**Runs the command only once**/
-    	once,
-    	/**Works like once but cancels the command on the second press**/
+    	/**Runs the command every time it the button is pressed<br/>Does not cancel**/
+    	whenPressed,
+    	/**Runs the command on every first press<br/>Cancels the command on every second press**/
     	toggle,
-    	/**Runs the command on every call of <u>Scheduler.getInstance().run()</u>**/
-    	constant,
-    	/**Cancels the command**/
+    	/**Runs the command while the button is pressed**/
+    	whilePressed,
+    	/**Runs the command while the button is not pressed**/
+    	whileNotPressed,
+    	/**Cancels the command once the button is pressed**/
     	cancel;
     }
     public enum Sides{
