@@ -175,7 +175,7 @@ public class XboxController {
     	public boolean Up=false, Down=false, Left = false, Right=false;
     	/**Returns -1 if the Direction Pad is not pressed else it returns a compass orientation starting with up being 0**/
     	public int degrees=-1;
-    	private void set(int degree){
+    	void set(int degree){
     		Up=(degree==315 || degree==0 || degree==45);
     		Down=(degree<=225 && degree>=135);
     		Left=(degree<=315 && degree>=225);
@@ -228,7 +228,7 @@ public class XboxController {
         		break;
         	}
         }
-        private void set(boolean current){
+        void set(boolean current){
         	last=this.current;
         	this.current=current;
         	changedDown=!last && this.current;
