@@ -37,7 +37,6 @@ public class RobotMap {
 	static class Solenoid {
 		//0-7 Free
 	}
-		//Driver Station USB
 
 	/**
 	 * This is everything that is connected to the USB's on the driver station
