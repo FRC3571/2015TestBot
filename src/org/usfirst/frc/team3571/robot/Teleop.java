@@ -5,7 +5,9 @@ public class Teleop extends OI {
 	public static void initial(){
 		//The code here runs only once when teleop starts
 	}
-	
+	/**
+	 * Runs periodically
+	 */
 	public static void periodic(){
 		//The code here runs until the robot is switched from teleop or disabled
 		
