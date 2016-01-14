@@ -11,11 +11,11 @@ import edu.wpi.first.wpilibj.DriverStation;
  *@author TomasR
  */
 public class XboxController {
-    private DriverStation dStation;
-    private int port=0, buttonState=0, buttonCount=0;
-    private Button[] buttons=new Button[10];
-    private short lRumble=0, rRumble=0;
-    private double deadZoneLeft=0, deadZoneRight=0;
+    DriverStation dStation;
+    int port=0, buttonState=0, buttonCount=0;
+    Button[] buttons=new Button[10];
+    short lRumble=0, rRumble=0;
+    double deadZoneLeft=0, deadZoneRight=0;
     
     public Axis LeftStick=new Axis(0,0), RightStick=new Axis(0,0);
     public triggers Triggers=new triggers(0,0);
@@ -121,10 +121,10 @@ public class XboxController {
     	else return Math.sqrt(RightStick.X*RightStick.X+RightStick.Y*RightStick.Y);
     }
     
-    private void getDpad(){
+    void getDpad(){
     	DPad.set(dStation.getStickPOV(port, 0));
     }
-    private void getLeftStick(){
+    void getLeftStick(){
     	LeftStick.X = dStation.getStickAxis(port, 0);
     	LeftStick.Y = dStation.getStickAxis(port, 1);
     	if(deadZoneLeft!=0){
@@ -134,7 +134,7 @@ public class XboxController {
     		}
     	}
     }
-    private void getRightStick(){
+    void getRightStick(){
     	RightStick.X = dStation.getStickAxis(port, 4);
     	RightStick.Y = dStation.getStickAxis(port, 5);
     	if(deadZoneRight!=0){
@@ -144,12 +144,12 @@ public class XboxController {
     		}
     	}
     }
-    private void getTrigger(){
+    void getTrigger(){
         Triggers.Left = dStation.getStickAxis(port, 2);
         Triggers.Right = dStation.getStickAxis(port, 3);
         Triggers.combine();
     }
-    private void getButtons(){
+    void getButtons(){
     	buttonState = dStation.getStickButtons(port);
     	for(int i=0;i<10;i++){
     		buttons[i].set((buttonState & (1 << i)) !=0 );
@@ -166,7 +166,7 @@ public class XboxController {
     		Left=l;
     		combine();
     	}
-    	private void combine(){
+    	void combine(){
     		Combined = Right - Left;
     	}
     }
