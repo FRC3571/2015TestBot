@@ -15,7 +15,7 @@ This is created with Eclipse for the purpose to be a tool for learting how to pr
 <li>(This program does not install on your machine,<br/> please place the entire unzipped folder where it is least likely to be deleted)</li>
 <li>run the file <b>Eclipse.exe</b></li>
 <li>go to <b>Help → Install New Software</b></li>
-<li>in the dropdown menu next to <b>"Work with"</b> sellect the codename of the Eclipse you are using</li>
+<li>in the dropdown menu next to <b>"Work with"</b> sellect the codename of the Eclipse you are using<br/>Currently it is Mars</li>
 <li>Under <b>Programming Languages</b> select <b>Eclipse Java Development Tools</b></li>
 <li>Click on <b>Next</b> → <b>Next</b> → <b>Accept</b> → <b>Finish</b></li>
 <li>Once Eclipse Restarts go back to <b>Install New Software</b></li>
